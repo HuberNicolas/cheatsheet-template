@@ -1,0 +1,250 @@
+\documentclass{scrartcl} % change from article to scrartcl
+
+% packages
+\usepackage[utf8]{inputenc} % was already here
+\usepackage[a4paper, margin=0.5cm, landscape]{geometry}
+\usepackage[dvipsnames]{xcolor}
+\usepackage[utf8]{inputenc}
+\usepackage{amscd, amsmath, amssymb, commath, empheq, enumitem, multicol, esint}
+\usepackage{mathtools}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{color} 
+
+% define some colors
+\definecolor{titletext}{RGB}{0,0,0} % Black
+\definecolor{section}{RGB}{37, 101, 174} % Lapis Lazuli
+\definecolor{subsection}{RGB}{60, 153, 220} % Tufts Blue
+\definecolor{subsubsection}{RGB}{102, 211, 250} % Maya Blue
+\definecolor{formula}{RGB}{213, 243, 254} % Water
+
+% define sections
+% section color box
+\setkomafont{section}{\mysection}
+\newcommand{\mysection}[1]{
+    \Large
+    \setlength{\fboxsep}{0cm} % already boxed
+    \colorbox{section}{
+        \begin{minipage}{\linewidth}
+            \vspace*{2pt} % pace before
+            \leftskip2pt % Space left
+            \rightskip\leftskip % Space right
+            {\color{titletext} #1}
+            \vspace*{1pt} % Space after
+        \end{minipage}
+    }}
+    
+%subsection color box
+\setkomafont{subsection}{\mysubsection}
+\newcommand{\mysubsection}[1]{
+    \normalsize
+    \setlength{\fboxsep}{0cm}%already boxed
+    \colorbox{subsection}{
+        \begin{minipage}{\linewidth}
+            \vspace*{2pt} % Space before
+            \leftskip2pt % Space left
+            \rightskip\leftskip % Space right
+            {\color{titletext} #1}
+            \vspace*{1pt} % Space after
+        \end{minipage}
+    }}
+    
+%subsection color box
+\setkomafont{subsubsection}{\mysubsubsection}
+\newcommand{\mysubsubsection}[1]{
+    \normalsize
+    \setlength{\fboxsep}{0cm} % already boxed
+    \colorbox{subsubsection}{
+        \begin{minipage}{\linewidth}
+            \vspace*{2pt} % Space before
+            \leftskip2pt % Space left
+            \rightskip\leftskip % Space right
+            {\color{titletext} #1}
+            \vspace*{1pt} % Space after
+        \end{minipage}
+    }}  
+
+% title
+\title{Template}
+\author{Nicolas Huber}
+\date{\today}
+
+% macros:
+% simplification : \newcommand{\<name>}[<number of arguments>]{<definition>}
+% (): round brackets, {}: curly brackets, []: square brackets, ⟨ ⟩: angle brackets
+
+% vector : \vec{v}
+\newcommand{\vect}[1]{\boldsymbol{#1}}
+
+% equation box : \eqbox       
+\newcommand{\eqbox}[1]{\fcolorbox{black}{formula}{\hspace{0.5em}$\displaystyle#1$\hspace{0.5em}}}
+
+% matrix () :  \matp
+\newcommand{\matp}[1]{ \displaystyle \begin{pmatrix} #1 \end{pmatrix} }
+
+% matrix []: \matb
+\newcommand{\matb}[1]{ \displaystyle \begin{bmatrix} #1 \end{bmatrix} }
+
+% matrix without braces : \mat
+\newcommand{\mat}[1]{ \displaystyle \begin{matrix} #1 \end{matrix}}
+
+% floor function: \floor
+\newcommand{\floor}[1]{\lfloor #1 \rfloor}
+
+% ceiling function: \ceil
+\newcommand{\ceil}[1]{\lceil #1 \rceil}
+
+% bemerkung
+\newcommand{\bem}{\textbf{\textit{Bem. }}}
+
+% definition
+\newcommand{\defn}{\textit{\underline{Def.:} }}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                     KEEP IN MIND
+% "|" use \mid or \mvert for relations (not delimiter)
+% "|" use \vert in context of an ordinal (not delimiter)
+% "|" use \lvert and \rvert as delimiters (not operators)
+
+\begin{document}
+\setcounter{secnumdepth}{0} % no enumeration of sections
+	\begin{multicols*}{3} % 3 columns
+		\maketitle
+		\section{Titel}
+				\subsection{Untertitel}
+					\subsubsection{Unter-Untertitel}
+					\subsubsection{Buchstaben}
+					    \begin{itemize}
+					        \item Griechische Buchstaben (klein): \\ $ \alpha \beta \gamma \delta \epsilon \varepsilon \zeta \eta \theta \vartheta \iota \kappa \lambda \mu \nu \xi \pi \varpi \rho \varrho \sigma \varsigma \tau \upsilon \phi \varphi \chi \psi \omega $
+					        \item Griechische Buchstaben (gross): \\ $ A B \Gamma \Delta E Z H  \Theta I K \Lambda M N \Xi O \Pi P \Sigma T \Upsilon \Phi X \Psi \Omega $
+					        \item Kalligraphische Symbole:  \\ $\mathcal{ABCDEFGHIJKLMNOPQRSTUVWXYZ}$
+					    \end{itemize}
+					\subsubsection{Notation}
+					    \begin{itemize}
+					        \item Definitionen: \defn{Satz des Pythagoras}
+    					    \item Bemerkungen: \bem{Tipps zum Faktorisieren}
+    					    \item Formeln: \eqbox{ x_{1,2} = \dfrac{-b \pm \sqrt{b^2-4ac}}{2a}}
+    					    \item Beweise: $\square \blacksquare$
+    					    \item   Index: $x_1$
+    						
+    						
+    						\item Bruch (displayed equations): \[
+       f(x) =  \frac{1}{2} x^2 = \dfrac{1}{2} x^2 = \tfrac{1}{2} x^2
+    \]
+                            \item Bruch (text): $
+       f(x) =  \frac{1}{2} x^2 = \dfrac{1}{2} x^2 = \tfrac{1}{2} x^2
+    $
+                            
+					    \end{itemize}
+					\subsubsection{Pfeile}
+					    \begin{itemize}
+					        \item
+                        $\leftarrow, \Leftarrow, \rightarrow, \Rightarrow, \leftrightarrow, \Longleftrightarrow, \mapsto, \longmapsto$
+					    \end{itemize}
+					\subsubsection{Zahlenbereiche}
+					    \begin{tabular}[h]{|l|l|}
+					        $\mathbb{N}$ & Menge der natürlichen Zahlen \\ 
+					        $\mathbb{N}_{0}$ & Menge der natürlichen Zahlen (inkl. 0) \\
+					        $\mathbb{Z}$ & Menge der ganzen Zahlen\\
+					        $\mathbb{Q}$ & Menge der rationalen Zahlen\\
+					        $\mathbb{R}$ & Menge der reellen Zahlen\\
+					        $\mathbb{C}$ & Menge der komplexen Zahlen\\
+					    \end{tabular}
+					\subsubsection{Gleichheit}
+					    \begin{tabular}[h]{|c|c|}
+					         $=$  & gleich \\
+					         $\neq$ & ungleich \\
+					         $\coloneqq$  & nach Definition gleich, Wertzuweisung \\
+					         $\approx$ & ungefähr gleich \\
+					         $\equiv$ & identisch \\
+					         $<, \leq$ & kleiner bzw. kleiner gleich \\
+					         $>, \geq$ & grösser bzw. grösser gleich \\
+					         $\ll$ & viel kleiner \\
+					         $\gg$ & viel grösser \\
+					    \end{tabular}
+					\subsubsection{Mengen}
+					    \begin{tabular}[h]{|c|c|}
+					         $\emptyset, \{\}$ & Leere Menge \\
+					         $\in,\ni, \not\in$ & Element von, bzw. nicht Element von \\
+					         $\cap, \bigcap$ & vereinigt mit, bzw. Vereinigung \\
+					         $\cup, \bigcup$ & geschnitten mit, bzw. Schnittmenge \\
+					         $\setminus$ & Kompelment \\
+					         $\subset, \supset$ & echte Teilmenge \\
+					         $\subseteq, \supseteq$ & Teilmenge \\
+					    \end{tabular}
+					 \subsubsection{Intervalle}
+    				    \begin{itemize}
+    				        \item offenes Intervall: $(a,b) = \mathopen]a,b\mathclose[ = \{x \mid a < x < b, x \in \mathbb{R}\}$
+    				        \item abgeschlossenes Intervall: $\mathopen[a,b\mathclose] = \{x \mid a \leq x \leq b, x \in \mathbb{R}\}$
+    				    \end{itemize}
+					\subsubsection{Logik}
+					    \begin{tabular}[h]{|c|c|}
+					        $\land$ & logische UND-Verknüpfung \\ %\wedge
+					        $\lor$ & logische ODER-Verknüpfung \\ %\vee
+					        $\neg$ & Negation \\
+					        $\longrightarrow$ & Implikation (daraus folgt)\\
+				            $\iff$ & Äquivalenz (genau dann, wenn) \\
+				            $\because$ &  weil (engl. because) \\
+				            $\therefore$  & deshalb (engl. therefore) \\
+				            $\forall$ & "für alle" Quantor \\
+				            $\exists$ & "es existiert" Quantor \\
+					    \end{tabular}      
+					\subsubsection{Funktionen}
+    					\begin{itemize}
+                            \item Trigonometrische Funktion: $ \sin{x}, \cos{x}, \tan{x}$
+                            \item Wurzeln: $\sqrt[n]{x}$
+                            \item Quadratwurzel: $\sqrt{x}$
+                            \item Exponentialfunktionen: $f(x) = e^{2x}$
+                            \item Logarithmusfunktionen: $f(x) = log_2(x)$
+                            \item Floor- und Ceiling- Funktion : $\floor{x}, \ceil{x}$
+                            \item Betragsfunktion: $f(x) = \abs{x}$
+    					\end{itemize}
+    					
+    				\subsubsection{Summen, Produkte und Grenzwerte}
+    				    \begin{itemize}
+    				        \item Summe: $\sum_{i=1}^n i = \frac{n(n+1)}{2}$
+    						\item Summe (mit "limits"): $\sum \limits_{i=1}^n i = \frac{n(n+1)}{2}$
+    						\item Produkt: $\prod_{i=1}^n i = n!$
+    						\item Produkt (mit limits): $\prod\limits_{i=1}^n i = n!$
+    						\item Maximum: $\max\limits_{x \in (a,b)}f(x)$
+    						\item Minimum: $\min\limits_{x \in (a,b)}f(x)$
+    						\item Limes: $\lim\limits_{n \to \infty}\frac{1}{n}=0$ 
+    				    \end{itemize}
+    			    \subsubsection{Integral- und Differentialrechnung}
+					    \begin{itemize}
+					        \item Ableitung: $f(x) = 3x^3, \ f'(x) = 9x^2$
+					        \item Integral: $\int x^2 \,\mathrm{d} x = \frac{x^3}{3} + C, C \in \mathbb{R}$
+					        
+					        \item Verknüpfung: $f(x) \circ g(x)$
+					        \item Differentialoperatoren: $\nabla, \partial$
+					    \end{itemize}
+					\subsubsection{Vektoren und Matrizen}
+					    \begin{itemize}
+					        \item Vektor: $\vec{v} = \matp{1 \\ 2 \\ 3} = \matp{1 & 2 & 3}^T$
+						    \item Matrix with Border () : A = $\matp{1 & 2 & 3 \\ a & b & c}$
+						    \item Matrix with Border [] : A =  $\matb{1 & 2 & 3 \\ a & b & c}$
+						    \item Matrix without Border: A = $\mat{1 & 2 & 3 \\ a & b & c}$
+						    \item Determinante: $\det(A) = \det
+    						    \begin{vmatrix}
+    						        2 & 1 \\ 
+    						        -2 & 1
+    						    \end{vmatrix} = 4$
+    						 \item Norm und Betrag: $\norm{a \vec{u}} = \abs{a} \, \norm{\vec{v}}$
+					    \end{itemize}
+					\subsubsection{Diverses}
+					    \begin{tabular}[h]{|c|c|}
+					         $\infty$ & Unendlich \\
+					         $\propto$ & proportional zu \\
+					         $\%$ & Modulo Operator \\
+					         $\times$ & mal ("times") \\
+					         $\cdot$ & mal ("cdot") \\
+					         $a \mid b$ & a teilt b \\
+					         $\Re$ & Realteil \\
+					         $\Im$ & Imaginärteil \\
+					         $\binom{a}{b}$ & Binominalkoeffizient \\
+					    \end{tabular}
+				    
+	\end{multicols*}
+\setcounter{secnumdepth}{2}
+
+\end{document}

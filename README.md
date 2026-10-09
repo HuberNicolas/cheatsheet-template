@@ -8,7 +8,7 @@
 ![KOMA-Script](https://img.shields.io/badge/KOMA--Script-scrartcl-2565AE)
 ![Overleaf](https://img.shields.io/badge/Overleaf-47A141?logo=overleaf&logoColor=white)
 [![Build PDF](https://github.com/HuberNicolas/cheatsheet-template/actions/workflows/build.yml/badge.svg)](https://github.com/HuberNicolas/cheatsheet-template/actions/workflows/build.yml)
-![License](https://img.shields.io/badge/License-GPLv3-blue)
+![License](https://img.shields.io/badge/License-MIT-yellow)
 
 [Preview](#preview) · [Quick start](#quick-start) · [Usage](#usage) · [PDF](https://github.com/HuberNicolas/cheatsheet-template/releases/latest)
 
@@ -161,8 +161,7 @@ as a workflow artifact. Pushing a tag `v*` also attaches the PDF to a GitHub rel
 
 ## License
 
-[GNU General Public License v3.0](LICENSE) © 2020 Nicolas Huber. Modified versions of the template must also be
-released under the GPLv3 and keep the copyright notice.
+[MIT](LICENSE) © 2020 Nicolas Huber.
 
 ## Author
 

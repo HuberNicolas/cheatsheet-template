@@ -1,0 +1,115 @@
+% cheatsheet.sty -- compact multi-column cheat sheets on landscape A4
+% https://github.com/HuberNicolas/cheatsheet-template
+%
+% Use with KOMA-Script's scrartcl. Compiles with pdfLaTeX, XeLaTeX and LuaLaTeX.
+\NeedsTeXFormat{LaTeX2e}[2020/10/01]
+\ProvidesPackage{cheatsheet}[2026/10/09 v2.0 Compact multi-column cheat sheets]
+
+% options: columns=<n> (default 3)
+\RequirePackage{kvoptions}
+\SetupKeyvalOptions{family=cs, prefix=cs@}
+\DeclareStringOption[3]{columns}
+\ProcessKeyvalOptions*
+
+% packages
+\RequirePackage{iftex}
+\ifPDFTeX
+  \RequirePackage[T1]{fontenc}
+\else
+  \RequirePackage{fontspec}
+\fi
+\RequirePackage[a4paper, landscape, margin=0.5cm]{geometry}
+\RequirePackage[dvipsnames]{xcolor}
+\RequirePackage{amsmath, amssymb, mathtools}
+\RequirePackage{enumitem}
+\RequirePackage{multicol}
+\RequirePackage{tabularx, booktabs}
+\RequirePackage{graphicx}
+\RequirePackage{etoolbox}
+\RequirePackage{microtype}
+\RequirePackage[hidelinks]{hyperref} % load last
+
+\pagestyle{empty}
+\setcounter{secnumdepth}{0} % no section numbers
+\setlength{\parindent}{0pt}
+\setlength{\columnsep}{8pt}
+\setlength{\columnseprule}{0.2pt}
+\def\columnseprulecolor{\color{cs-subsubsection}}
+
+% colors
+\definecolor{cs-title}{RGB}{37, 101, 174}          % Lapis Lazuli
+\definecolor{cs-section}{RGB}{37, 101, 174}        % Lapis Lazuli
+\definecolor{cs-section-text}{RGB}{255, 255, 255}  % White
+\definecolor{cs-subsection}{RGB}{60, 153, 220}     % Tufts Blue
+\definecolor{cs-subsubsection}{RGB}{102, 211, 250} % Maya Blue
+\definecolor{cs-heading-text}{RGB}{0, 0, 0}        % Black
+\definecolor{cs-formula}{RGB}{213, 243, 254}       % Water
+
+% headings: a full-width colored box per level
+\newcommand{\cs@headbox}[3]{% background, text color, title
+  {\setlength{\fboxsep}{1.5pt}%
+   \colorbox{#1}{\parbox{\dimexpr\linewidth-2\fboxsep\relax}{%
+     \strut\hspace{1pt}\color{#2}#3}}}%
+}
+\renewcommand{\sectionlinesformat}[4]{%
+  \ifstrequal{#1}{section}{\cs@headbox{cs-section}{cs-section-text}{#4}}{%
+  \ifstrequal{#1}{subsection}{\cs@headbox{cs-subsection}{cs-heading-text}{#4}}{%
+  \ifstrequal{#1}{subsubsection}{\cs@headbox{cs-subsubsection}{cs-heading-text}{#4}}{%
+  \@hangfrom{\hskip #2#3}{#4}}}}%
+}
+\setkomafont{section}{\normalfont\sffamily\large\bfseries}
+\setkomafont{subsection}{\normalfont\sffamily\normalsize\bfseries}
+\setkomafont{subsubsection}{\normalfont\sffamily\normalsize}
+\RedeclareSectionCommand[beforeskip=6pt, afterskip=3pt]{section}
+\RedeclareSectionCommand[beforeskip=4pt, afterskip=2pt]{subsection}
+\RedeclareSectionCommand[beforeskip=4pt, afterskip=2pt]{subsubsection}
+
+% compact lists
+\setlist{nosep, leftmargin=*}
+\setlist[itemize]{label=\textcolor{cs-subsection}{\textbullet}}
+
+% compact display math
+\AtBeginDocument{%
+  \setlength{\abovedisplayskip}{2pt}%
+  \setlength{\belowdisplayskip}{2pt}%
+  \setlength{\abovedisplayshortskip}{0pt}%
+  \setlength{\belowdisplayshortskip}{2pt}%
+}
+
+% title: compact banner at the top of the first column
+\renewcommand{\maketitle}{%
+  \par{\color{cs-title}\rule{\linewidth}{1pt}}\par\smallskip
+  {\sffamily\LARGE\bfseries\color{cs-title}\@title\par}
+  {\small\@author\ifx\@date\@empty\else\ \textbar\ \@date\fi\par}
+  {\color{cs-title}\rule{\linewidth}{1pt}}\par
+  \hypersetup{pdftitle={\@title}, pdfauthor={\@author}}%
+}
+
+% cheatsheet environment: \begin{cheatsheet} ... \end{cheatsheet}
+\newenvironment{cheatsheet}
+  {\begin{multicols*}{\cs@columns}\raggedcolumns}
+  {\end{multicols*}}
+
+% two-column symbol table that fills the column width: \begin{symbols} $x$ & text \\ \end{symbols}
+\newenvironment{symbols}
+  {\par\tabularx{\linewidth}{@{}>{$}l<{$}@{\hspace{6pt}}X@{}}}
+  {\endtabularx\par\smallskip}
+
+% macros
+\newcommand{\vect}[1]{\boldsymbol{#1}}                % bold vector
+\newcommand{\eqbox}[1]{{\setlength{\fboxsep}{3pt}%    % boxed formula
+  \fcolorbox{cs-section}{cs-formula}{$\displaystyle #1$}}}
+\newcommand{\matp}[1]{\begin{pmatrix} #1 \end{pmatrix}} % matrix ( )
+\newcommand{\matb}[1]{\begin{bmatrix} #1 \end{bmatrix}} % matrix [ ]
+\newcommand{\mat}[1]{\begin{matrix} #1 \end{matrix}}    % matrix without brackets
+\DeclarePairedDelimiter{\abs}{\lvert}{\rvert}          % \abs{x}, \abs*{x} scales
+\DeclarePairedDelimiter{\norm}{\lVert}{\rVert}         % \norm{x}
+\DeclarePairedDelimiter{\floor}{\lfloor}{\rfloor}      % \floor{x}
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}         % \ceil{x}
+\newcommand{\dif}{\mathop{}\!\mathrm{d}}               % upright d in integrals
+\newcommand{\defn}{\textit{\underline{Def.:}}\ }       % definition marker
+\newcommand{\bem}{\textbf{\textit{Bem.:}}\ }           % remark marker (Bemerkung)
+
+% License
+% Copyright (C) 2020 Nicolas Huber, nicolas.huber.dev@gmail.com
+% See the LICENSE file.
